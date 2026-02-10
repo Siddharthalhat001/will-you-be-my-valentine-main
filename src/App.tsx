@@ -11,7 +11,8 @@ import photo7 from "./assets/photo7.jpg";
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
-  const yesButtonSize = noCount * 20 + 16;
+  // cap the yes button size so it stays reasonable on small screens
+  const yesButtonSize = Math.min(noCount * 20 + 16, 48);
 
   const handleNoClick = () => {
     setNoCount(noCount + 1);
@@ -62,10 +63,17 @@ export default function Page() {
   };
 
   return (
-    <div 
+    <div
       className="-mt-16 flex h-screen flex-col items-center justify-center relative overflow-hidden bg-black"
+      // always provide a sensible background on small screens; the collage is shown on md+
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${photo3}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="absolute inset-0 w-full h-full flex gap-1 p-2">
+      {/* collage only visible on medium+ screens */}
+      <div className="hidden md:absolute md:inset-0 md:w-full md:h-full md:flex md:gap-1 md:p-2">
         <div className="flex-1 h-full overflow-hidden">
           <img src={photo1} alt="photo1" className="w-full h-full object-cover" />
         </div>
@@ -83,7 +91,8 @@ export default function Page() {
         </div>
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
+
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
       {yesPressed ? (
         <>
           <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
@@ -94,13 +103,14 @@ export default function Page() {
           {noCount < 38 ? (
             <>
               <img
-                className="h-[200px]"
+                className="h-28 md:h-[200px]"
                 src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"
+                alt="cute gif"
               />
-              <h1 className="my-4 text-4xl">Priti will you be my valentine?</h1>
-              <div className="flex items-center">
+              <h1 className="my-4 text-2xl md:text-4xl text-center">Priti will you be my valentine?</h1>
+              <div className="flex w-full max-w-xl flex-col md:flex-row items-center gap-3">
                 <button
-                  className={`mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
+                  className={`w-full md:w-auto mr-0 md:mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
                   style={{ fontSize: yesButtonSize }}
                   onClick={() => setYesPressed(true)}
                 >
@@ -108,7 +118,7 @@ export default function Page() {
                 </button>
                 <button
                   onClick={handleNoClick}
-                  className=" rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+                  className="w-full md:w-auto rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700 whitespace-normal text-center text-sm md:text-base"
                 >
                   {noCount === 0 ? "No" : getNoButtonText()}
                 </button>
@@ -116,7 +126,7 @@ export default function Page() {
             </>
           ) : (
             <button
-              className="w-full h-full rounded bg-green-500 font-bold text-white hover:bg-green-700 flex items-center justify-center text-9xl"
+              className="w-full h-full rounded bg-green-500 font-bold text-white hover:bg-green-700 flex items-center justify-center text-6xl md:text-[9rem]"
               onClick={() => setYesPressed(true)}
             >
               YES!!! 💚
