@@ -107,7 +107,7 @@ export default function Page() {
                 src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif"
                 alt="cute gif"
               />
-              <h1 className="my-4 text-2xl md:text-4xl text-center">Priti will you be my valentine?</h1>
+              <h1 className="my-4 text-2xl md:text-4xl text-center text-white">Priti will you be my valentine?</h1>
               <div className="flex w-full max-w-xl flex-col md:flex-row items-center gap-3">
                 <button
                   className={`w-full md:w-auto mr-0 md:mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
